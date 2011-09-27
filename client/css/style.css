@@ -2,7 +2,6 @@
 	padding: 0;
 	margin: 0;
 	outline: none;
-	border: none;
 }
 
 body {
@@ -12,8 +11,28 @@ body {
 }
 
 .cursor {
-	width: 12px;
+	min-width: 20px;
+	width: auto;
 	height: 20px;
 	position: absolute;
 	background: transparent url(../img/cursor.png) no-repeat 0 0;
+}
+
+.cursor p {
+	margin-left: 20px;
+	width: 200px;
+	word-wrap: break-word;
+}
+
+#pushMessage {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: 200px;
+}
+
+#localMessage {
+	position: absolute;
+	width: 200px;
+	word-wrap: break-word;
 }

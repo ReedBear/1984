@@ -21,6 +21,11 @@ io.sockets.on('connection', function (socket) {
 		socket.broadcast.volatile.emit('pushPosition', data);
 	});
 	
+	// Affichage du chat
+	socket.on('updateMessage', function (data) {	
+		io.sockets.emit('pushMessage', data);
+	});
+	
 	// Déconnexion
 	socket.on('disconnect', function () {
 		socket.broadcast.emit('disconnected', id);
