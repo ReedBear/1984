@@ -1,0 +1,19 @@
+* {
+	padding: 0;
+	margin: 0;
+	outline: none;
+	border: none;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+	background-color: #ddd;
+}
+
+.cursor {
+	width: 12px;
+	height: 20px;
+	position: absolute;
+	background: transparent url(../img/cursor.png) no-repeat 0 0;
+}

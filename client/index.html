@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title></title>
+		<script src="./socket.io/socket.io.js"></script>
+		<script src="jquery-1.6.4.min.js"></script>
+		<script>
+		var messageToken = false;
+		$(function() {
+			console.log("init");
+			var socket = io.connect('10.154.249.246');
+			var id;
+			
+			// Retour de connexion
+			socket.on('connected', function (data) {
+				id = data;
+			});
+			
+			// Mouvement de la souris
+			setTimeout(function() {
+				$(document).mousemove(function (e) {
+					if(messageToken) {
+						socket.emit('updatePosition', {x: e.pageX, y: e.pageY, id: id});	
+						messageToken = false;
+					}
+				});
+				setInterval(fonction() {messageToken = true;}, 10);
+			}, 200);
+		
+			// Récupération de la position des autres
+			socket.on('pushPosition', function(data) {
+				if(!$('#' + data.id).length && data.id != undefined) {
+					$('body').append('<div class="cursor" id="'+data.id+'"><p></p></div>');
+				}
+				$('#' + data.id).css({left: data.x, top: data.y});
+			});
+			
+			// Déconnexion
+			socket.on('disconnected', function (id) {
+				console.log("logout");	
+				$('#' + id).remove();
+			});
+		});
+		</script>
+		
+		<style type="text/css">
+			@import url(css/style.css);
+		</style>
+		
+	</head>
+	<body>
+	</body>
+</html>
