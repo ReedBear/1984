@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title><%=locals.title%></title>
+		
+		<script src="./socket.io/socket.io.js"></script>
+		<script src="js/jquery-1.6.4.min.js"></script>
+		<script src="js/sockets.js"></script>
+		
+		<style type="text/css">
+			@import url(css/style.css);
+		</style>
+		
+	</head>
+	<body>
+	
+	<div id="localMessage">
+	</div>
+	
+	<form id="messageform" method="post" action=".">
+		<input id="pushMessage" type="text" value="" placeholder="Votre message ici" />
+	</form>
+	</body>
+</html>

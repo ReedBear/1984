@@ -2,17 +2,38 @@ var app = require('express').createServer(),
 	express = require('express'),
 	io = require('socket.io').listen(app);
 
-app.use(express.static(__dirname + '/client'));
-app.listen(80);
+// **************
+// *** CONFIG ***
+// **************
 
-app.get('/', function (req, res) {
-	res.sendfile(__dirname + '/client/index.html');
+app.configure(function() {
+	app.use(express.static(__dirname + '/public'));
+	app.set('view engine', 'EJS');
+	app.set('views', __dirname + '/views');
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(express.cookieParser());
 });
 
+app.listen(8080);
+
+// **************
+// *** ROUTES ***
+// **************
+
+app.get('/', function (req, res) {
+	res.render('layout', {locals:{title: '1984 — Index'}});
+});
+
+// ***************
+// *** SOCKETS ***
+// ***************
+
 io.sockets.on('connection', function (socket) {
+	
 	var id = socket.id;
 	
-	// Réponse
+	// Réponse à la connec.
 	socket.emit('connected', id);
 	
 	// Update de la position
@@ -30,4 +51,5 @@ io.sockets.on('connection', function (socket) {
 	socket.on('disconnect', function () {
 		socket.broadcast.emit('disconnected', id);
 	});
+	
 });
